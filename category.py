@@ -2,8 +2,8 @@ import json
 import copy
 from openpyxl import Workbook
 
-data_json_path = 'C:\\Users\\s_lkic1625\\Desktop\\datacollect-18877-export.json'
-categories_json_path = 'C:\\Users\\s_lkic1625\\Desktop\\categories.json'
+data_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
+categories_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\categories.json'
 # CELL_DATE = 1
 CELL_LAST_USED = 6
 CELL_PACKAGE_NAME = 5
@@ -81,4 +81,6 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     idx += 1
 
 
-    wb.save(filename= 'data.xlsx')
+    wb.save(filename= 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\data.xlsx')
+
+# print(categories_dict)
