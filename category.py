@@ -16,6 +16,11 @@ MAX_CATEGORIES_BY_COROUTINE = 5
 
 categories_dict = {}
 
+non_category_count = 0
+UTILITY_ARRAY = {'Productivity', 'Photography', 'Weather'}
+SNS_STRING = 'Social'
+ENTERTAINMENT_ARRAY = {'Entertainment', 'Books & Reference', 'Music & Audio', 'House & Home', 'Sports', 'Video Players & Editors'}
+
 #catergory의 이름(String)을 번호(Integer)로 Mapping하는 code
 with open(categories_json_path, encoding= 'UTF-8') as json_file:
     categories_array = json.load(json_file)
