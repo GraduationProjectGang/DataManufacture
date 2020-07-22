@@ -1,5 +1,94 @@
 {
     "LG Camera": {
-
+        "packageName": "com.lge.camera",
+        "category": "Photography"
+    },
+    "Android MMS": {
+        "packageName": "com.android.mms",
+        "category": "Social"
+    },
+    "TVing": {
+        "packageName": "net.cj.cjhv.gs.tving.samsung",
+        "category": "Entertainment"
+    },
+    "Samsung Dialer": {
+        "packageName": "com.samsung.android.dialer",
+        "category": "System"
+    },
+    "Aladin E-Book": {
+        "packageName": "kr.co.aladin.ebook",
+        "category": "Books & Reference"
+    },
+    "Toss": {
+        "packageName": "viva.republica.toss",
+        "category": "Finance"
+    },
+    "PenUp": {
+        "packageName": "com.sec.penup",
+        "category": "Social"
+    },
+    "LG Clock": {
+        "packageName": "com.lge.clock",
+        "category": "Social"
+    },
+    "디너의 여왕": {
+        "packageName": "com.dinnerqueen",
+        "category": "Food & Drink"
+    },
+    "데이트팝": {
+        "packageName": "com.tenfingers.seouldatepop",
+        "category": "Entertainment"
+    },
+    "한글 hwp": {
+        "packageName": "com.hancom.office.hwp.editor.hwp_apk",
+        "category": "Tools"
+    },
+    "너랑나랑": {
+        "packageName": "com.endressdreamky.loveting",
+        "category": "Social"
+    },
+    "Android 연락처": {
+        "packageName": "com.android.contacts",
+        "category": "System"
+    },
+    "Android Camera": {
+        "packageName": "com.sec.android.app.camera",
+        "category": "Photography"
+    },
+    "자소설닷컴": {
+        "packageName": "com.anchoreer.jasoseol",
+        "category": "Education"
+    },
+    "Nike Run Club": {
+        "packageName": "com.nike.plusgps",
+        "category": "Health & Fitness"
+    },
+    "Android Clock": {
+        "packageName": "com.sec.android.app.clockpackage",
+        "category": "System"
+    },
+    "Android Settings": {
+        "packageName": "com.android.settings",
+        "category": "System"
+    },
+    "Android Calendar": {
+        "packageName": "com.android.calendar",
+        "category": "System"
+    },
+    "Snapseed": {
+        "packageName": "com.niksoftware.snapseed",
+        "category": "Photography"
+    },
+    "PhotoRetouching": {
+        "packageName": "com.sec.android.mimage.photoretouching",
+        "category": "Photography"
+    },
+    "야놀자": {
+        "packageName": "com.cultsotry.yanolja.nativeapp",
+        "category": "Travel & Local"
+    },
+    "Youtube Vanced": {
+        "packageName": "com.vanced.android.youtube",
+        "category": "Entertainment"
     }
 }
