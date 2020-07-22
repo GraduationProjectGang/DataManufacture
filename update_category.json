@@ -90,5 +90,42 @@
     "Youtube Vanced": {
         "packageName": "com.vanced.android.youtube",
         "category": "Entertainment"
+    },
+    "Samsung fmm": {
+        "packageName": "com.samsung.android.fmm",
+        "category": "System"
+      },
+    "Samsung forest":{
+        "packageName": "com.samsung.android.forest",
+        "category": "Shopping"
+    },
+    "Samsung Contacts":{
+        "packageName": "com.samsung.android.app.contacts",
+        "category": "Utility"
+    },
+
+    "Samsung mtpApplication":{
+        "packageName": "com.samsung.android.MtpApplication",
+        "category": "Utility"
+    },
+    "Samsung Video":{
+        "packageName": "com.samsung.android.video",
+        "category": "Utility"
+    },
+    "Samsung Themestore":{
+        "packageName": "com.samsung.android.themestore",
+        "category": "Utility"
+    },
+    "Samsung Bixby":{
+        "packageName": "com.samsung.android.bixby.agent",
+        "category": "Utility"
+    },
+    "Samsung GameHome":{
+        "packageName": "com.samsung.android.game.gamehome",
+        "category": "Action"
+    },
+    "Samsung ARzone":{
+        "packageName": "com.samsung.android.arzone",
+        "category": "Entertainment"
     }
 }
