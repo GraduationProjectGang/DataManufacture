@@ -4,6 +4,7 @@ import math
 import numpy as np
 from datetime import datetime
 import ast
+from collections import OrderedDict
 
 # 1 : 눈 밑, 2 : 눈과 일직선, 3 : 눈 위
 
@@ -39,22 +40,24 @@ def posture_y(degree):
         return 0
         
 
-jsonPath = 'C:\\Users\\sejin\\Desktop\\졸프\\data_set.json'
+jsonPath = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
+file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\sample.json'
+
 
 with open(jsonPath, encoding= 'UTF-8') as json_file:
     usersData = json.load(json_file)
     users = usersData['user']
 
 
-    file_path = 'C:\\Users\\sejin\\Desktop\\졸프\\sample2.json'
-    data = {}
+    data = OrderedDict()
 
     for userKey in users:
 
-        data[userKey] = []
+        data[userKey] = {}
 
         for rotationVectorStress in users[userKey]:
             if rotationVectorStress == 'rotatevector':
+                index = 0
                 for rotateVecKey in users[userKey][rotationVectorStress]:
 
                     data_x = np.array([])
@@ -104,14 +107,14 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                                 if bincount_x[i] > bincount_x[pos]:
                                     pos = i
 
-                            print(bincount_x)
+                            # print(bincount_x)
 
                             ori = 0
                             for i in range(0, 3):
                                 if bincount_y[i] > bincount_y[ori]:
                                     ori = i
 
-                            print(bincount_y)
+                            # print(bincount_y)
                             flag = 1
 
                         if rotateVecInfo == 'timestamp':
@@ -120,13 +123,11 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                             timeStamp = timestamp
 
                             flag = 2
-                            print(flag)
+                            # print(flag)
 
                         if flag == 2:
-                            print("position", pos, ", bincount_x[pos] ", bincount_x[pos], ", std_x ", std_x, ", orientation ", ori,
-                            ", bincount_y[ori] ", bincount_y[ori], ", std_y ", std_y, ", timestamp ", timeStamp)
 
-                            data[userKey].append({
+                            data[userKey][index] = {
                                 "posture": int(pos),
                                 "posture_accuracy": bincount_x[pos],
                                 "std_posture": float(std_x),
@@ -134,7 +135,9 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                                 "orientation_accuracy": bincount_y[ori],
                                 "std_orientation": float(std_y),
                                 "timestamp": timeStamp
-                            })
+                            }
+
+                            index += 1
 
                             posture_list.clear()
                             orientation_list.clear()
