@@ -57,7 +57,7 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
     sheet1 = wb.active
     sheet1.title = 'untitled'
     idx = 1
-    jsonData = OrderedDict()
+    jsonData = dict()
     #appending each user data
     for user_name in users:
         jsonData[user_name] = {}
@@ -65,8 +65,12 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
             index = 0
             if property == 'usagestatsCoroutine':
                 for coroutines in users[user_name][property]:
+<<<<<<< HEAD
+                    
+=======
                     # if idx>= MAX_CATEGORIES_BY_COROUTINE:
                     #     break
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                     sheet1.cell(idx, CELL_USER_NAME).value = user_name
                     jsonData[user_name]['userName'] = user_name
                     # print(type(jsonData[user_name]))
@@ -74,25 +78,35 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                         # if coroutine_attr == 'date':
                         #     sheet1.cell(idx, CELL_DATE).value = users[user_name][property][coroutines][coroutine_attr]
                         
+                        
                         if coroutine_attr == 'timestamp':
+<<<<<<< HEAD
+                            sheet1.cell(idx, CELL_TIMESTAMPS).value = int((int(users[user_name][property][coroutines][coroutine_attr])/1000))
+                            jsonData[user_name]['timestamp'] = int((int(users[user_name][property][coroutines][coroutine_attr])/1000))
+
+=======
                             sheet1.cell(idx, CELL_TIMESTAMPS).value = str(int(users[user_name][property][coroutines][coroutine_attr]))
                             tempTime = str(int(users[user_name][property][coroutines][coroutine_attr]))
                             jsonData[user_name]['timestamp'] = tempTime
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                         if coroutine_attr == 'statsList':
                             start_idx = idx
+                            
                             for element in users[user_name][property][coroutines][coroutine_attr]:
+                                
                                 #case1 코루틴의 statsList 개수가 5개가 이상일 경우
-                                
-                                
                                 uncategorizable = False
                                 for stat_attr in element:
                                     # if stat_attr == 'lastTimeUsed':
                                     #     sheet1.cell(idx, CELL_LAST_USED).value = element[stat_attr]
-                                    
                                     if stat_attr == 'packageName':
+<<<<<<< HEAD
+                                        jsonData[user_name][str(index)]={}
+=======
                                         jsonData[user_name][index] = {}
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                                         sheet1.cell(idx, CELL_PACKAGE_NAME).value = element[stat_attr]
-                                        jsonData[user_name][index]['packageName'] =  element[stat_attr]
+                                        jsonData[user_name][str(index)]['packageName'] =  element[stat_attr]
                                         if element[stat_attr] in categories_dict.keys():
                                             #Integer로 Mapping한 카테고리 dictionary 내에 값이 있는지 확인.
                                             category_value = categories_dict[element[stat_attr]]
@@ -126,7 +140,7 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                             elif category_value == BROWSER_STRING:
                                                 category_label = 14
                                             sheet1.cell(idx, CELL_CATEGORY).value = category_label
-                                            jsonData[user_name][index]['category'] =  category_label
+                                            jsonData[user_name][str(index)]['category'] =  category_label
 
                                         else:
                                             #Play store에 없는 APP의 경우.
@@ -139,7 +153,13 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                         if not uncategorizable:
                                             idx = idx + 1
 
+<<<<<<< HEAD
+                            index = index + 1
+                            if idx >= MAX_CATEGORIES_BY_COROUTINE:
+                                break
+=======
                                 index = index + 1
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                             
             
                             
@@ -150,8 +170,13 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     sheet1.cell(idx, CELL_PACKAGE_NAME).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_CATEGORY).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_TOTAL_TIME_IN_FOREGROUND).value = PADDING_STATE
+<<<<<<< HEAD
+                                    jsonData[user_name][str(index)] = 0
+=======
 
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                                     idx += 1
+    print(jsonData)
                
 
 
