@@ -126,7 +126,7 @@
   },
   "디어 deer": {
     "packageName": "co.deering.deer",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "건국대학교": {
     "packageName": "kr.ac.konkuk.kumob",
@@ -234,7 +234,7 @@
   },
   "KakaoMap - Map \/ Navigation": {
     "packageName": "net.daum.android.map",
-    "category": "Travel & Local"
+    "category": "Maps & Navigation"
   },
   "Legends of Runeterra": {
     "packageName": "com.riotgames.legendsofruneterra",
@@ -354,11 +354,11 @@
   },
   "Lime - Your Ride Anytime": {
     "packageName": "com.limebike",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "Samsung Pay": {
     "packageName": "com.samsung.android.spay",
-    "category": "Lifestyle"
+    "category": "Shopping"
   },
   "단기PLAYER": {
     "packageName": "com.stn.mobile_player",
@@ -418,7 +418,7 @@
   },
   "씽씽 - 새로운 이동생활": {
     "packageName": "com.xingxingapp",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "5G 스트리밍게임": {
     "packageName": "com.kt.streamgame",
@@ -510,7 +510,7 @@
   },
   "Beam - Escooter sharing": {
     "packageName": "com.escooterapp",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "크몽 - 전문가가 필요한 순간": {
     "packageName": "com.kmong.kmong",
@@ -894,7 +894,7 @@
   },
   "머케인 메이트 - 전동 킥보드 공유 서비스": {
     "packageName": "com.mobani.oboon",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "DaBang - Rental Homes in Korea": {
     "packageName": "kr.co.station3.dabang",
@@ -1286,7 +1286,7 @@
   },
   "WIND - 새로운 스마트 전기 모빌리티 공유 플랫폼": {
     "packageName": "com.wind.korea",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "CNN Breaking US & World News": {
     "packageName": "com.cnn.mobile.android.phone",
@@ -1322,7 +1322,7 @@
   },
   "Maps - Navigate & Explore": {
     "packageName": "com.google.android.apps.maps",
-    "category": "Travel & Local"
+    "category": "Maps & Navigation"
   },
   "Hangouts": {
     "packageName": "com.google.android.talk",
@@ -1378,7 +1378,7 @@
   },
   "킥고잉 - 다운로드 1위 킥보드 공유 서비스": {
     "packageName": "com.olulo.kickgoing",
-    "category": "Travel & Local"
+    "category": "Auto & Vehicles"
   },
   "타임커머스 티몬": {
     "packageName": "com.tmon",
@@ -1442,7 +1442,7 @@
   },
   "NAVER Map, Navigation": {
     "packageName": "com.nhn.android.nmap",
-    "category": "Travel & Local"
+    "category": "Maps & Navigation"
   },
   "피망 섯다": {
     "packageName": "com.neowiz.games.sudda",
@@ -1539,7 +1539,7 @@
   },
   "네이버 - NAVER": {
     "packageName": "com.nhn.android.search",
-    "category": "Books & Reference"
+    "category": "Browser"
   },
   "Instagram": {
     "packageName": "com.instagram.android",
