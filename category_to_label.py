@@ -10,7 +10,7 @@ categories_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\ca
 file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\category_labels.json'
 
 CAMERA_STRING = 'Photography'
-UTILITY_ARRAY = {'Productivity', 'Beauty', 'Weather', 'News & Magazines', 'Dating', 'Tools'}
+UTILITY_ARRAY = {'Productivity', 'Beauty', 'Weather', 'News & Magazines', 'Dating', 'Tools', 'Utility'}
 SNS_STRING = 'Social'
 ENTERTAINMENT_ARRAY = {'Entertainment', 'Books & Reference', 'Music & Audio', 'House & Home', 'Sports', 'Video Players & Editors', 'Travel & Local', 'Lifestyle', 'Comics'}
 COMMUNICATION_STRING = 'Communication'
@@ -22,6 +22,7 @@ MAPS_VEHICLE_ARRAY = {'Maps & Navigation', 'Auto & Vehicles'}
 HEALTH_STRING = 'Health & Fitness'
 FOOD_STRING = 'Food & Drink'
 FINANCE_STRING = 'Finance'
+BROWSER_STRING = 'Browser'
 
 #catergory의 이름(String)을 번호(Integer)로 Mapping하는 code
 with open(categories_json_path, encoding= 'UTF-8') as json_file:
@@ -64,6 +65,11 @@ with open(categories_json_path, encoding= 'UTF-8') as json_file:
                     category_label = 12
                 elif category == FINANCE_STRING:
                     category_label = 13
+                elif category == BROWSER_STRING:
+                    category_label = 14
+                else:
+                    non_category_count += 1
+                    non_category_list.append(package_name)
 
         data[package_name] = []
         data[package_name].append({
@@ -72,6 +78,8 @@ with open(categories_json_path, encoding= 'UTF-8') as json_file:
         })
     
     print(data)
+    print(non_category_count)
+    print(non_category_list)
 
     with open(file_path, 'w') as outfile:
         json.dump(data, outfile)
