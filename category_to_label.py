@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 
 categories_dict = {}
 categories_label = list([])
@@ -27,7 +28,7 @@ BROWSER_STRING = 'Browser'
 #catergory의 이름(String)을 번호(Integer)로 Mapping하는 code
 with open(categories_json_path, encoding= 'UTF-8') as json_file:
 
-    data = {}
+    data = OrderedDict()
 
     categories_array = json.load(json_file)
     for app in categories_array:
@@ -71,11 +72,9 @@ with open(categories_json_path, encoding= 'UTF-8') as json_file:
                     non_category_count += 1
                     non_category_list.append(package_name)
 
-        data[package_name] = []
-        data[package_name].append({
-            "category": category,
-            "category_label": category_label
-        })
+        data[package_name] = {}
+        data[package_name]["category"] = category
+        data[package_name]["category_label"] = category_label
     
     print(data)
     print(non_category_count)

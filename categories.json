@@ -231,7 +231,7 @@
     "packageName": "com.lotte",
     "category": "Shopping"
   },
-  "KakaoMap - Map \/ Navigation": {
+  "KakaoMap - Map / Navigation": {
     "packageName": "net.daum.android.map",
     "category": "Maps & Navigation"
   },
@@ -635,7 +635,7 @@
     "packageName": "com.ahnlab.v3mobileplus",
     "category": "Tools"
   },
-  "삭제된 메시지 보기 - 삭톡\/모든톡K(구)": {
+  "삭제된 메시지 보기 - 삭톡/모든톡K(구)": {
     "packageName": "com.rbu.saktalk",
     "category": "Dating"
   },
@@ -935,7 +935,7 @@
     "packageName": "com.ss.android.ugc.trill",
     "category": "Video Players & Editors"
   },
-  "OP.GG for League\/ PUBG\/ Overwatch": {
+  "OP.GG for League/ PUBG/ Overwatch": {
     "packageName": "gg.op.lol.android",
     "category": "Entertainment"
   },
@@ -1027,7 +1027,7 @@
     "packageName": "com.d8aspring.panelnow",
     "category": "Lifestyle"
   },
-  "UBhind: No.1 Mobile Life Tracker\/Addiction Manager": {
+  "UBhind: No.1 Mobile Life Tracker/Addiction Manager": {
     "packageName": "kr.co.rinasoft.howuse",
     "category": "Productivity"
   },
@@ -1051,7 +1051,7 @@
     "packageName": "com.nbt.moves",
     "category": "Utility"
   },
-  "GS Fresh Mall\/ 심플리쿡 - 마트부터 편의점까지. 3시간 내 당일 배송": {
+  "GS Fresh Mall/ 심플리쿡 - 마트부터 편의점까지. 3시간 내 당일 배송": {
     "packageName": "com.gsretail.android.smapp",
     "category": "Shopping"
   },
@@ -1359,7 +1359,7 @@
     "packageName": "com.sec.android.app.shealth",
     "category": "Health & Fitness"
   },
-  "ISP\/PAYBOOC": {
+  "ISP/PAYBOOC": {
     "packageName": "kvp.jjy.MispAndroid320",
     "category": "Finance"
   },
@@ -1467,7 +1467,6 @@
     "packageName": "com.samsung.accessory.popcornmgr",
     "category": "Tools"
   },
-
   "알바천국- 알바 구인구직 포털서비스": {
     "packageName": "kr.co.alba.webappalba.m",
     "category": "Business"
@@ -1676,7 +1675,7 @@
     "packageName": "com.hustay.swing.p3cfded673ced4983b0db9399638730cb",
     "category": "Lifestyle"
   },
-  "모두의주차장-국민주차앱 (주차장검색\/주차공유\/할인결제)": {
+  "모두의주차장-국민주차앱 (주차장검색/주차공유/할인결제)": {
     "packageName": "com.parkingshare.mobile",
     "category": "Auto & Vehicles"
   },
@@ -1760,7 +1759,7 @@
     "packageName": "bbc.mobile.news.ww",
     "category": "News & Magazines"
   },
-  "위메프 - 특가대표 (특가 \/ 쇼핑 \/ 쇼핑앱 \/ 쿠폰 \/ 배송)": {
+  "위메프 - 특가대표 (특가 / 쇼핑 / 쇼핑앱 / 쿠폰 / 배송)": {
     "packageName": "com.wemakeprice",
     "category": "Shopping"
   },
@@ -1856,7 +1855,7 @@
     "packageName": "com.makeshop.powerapp.newcomfort",
     "category": "Shopping"
   },
-  "T map - 내비게이션 \/ 지도": {
+  "T map - 내비게이션 / 지도": {
     "packageName": "com.skt.tmap.ku",
     "category": "Maps & Navigation"
   },
@@ -2035,5 +2034,133 @@
   "Samsung Members": {
     "packageName": "com.samsung.android.voc",
     "category": "Tools"
+  },
+  "LG Camera": {
+    "packageName": "com.lge.camera",
+    "category": "Photography"
+  },
+  "Android MMS": {
+    "packageName": "com.android.mms",
+    "category": "Social"
+  },
+  "TVing": {
+    "packageName": "net.cj.cjhv.gs.tving.samsung",
+    "category": "Entertainment"
+  },
+  "Samsung Dialer": {
+    "packageName": "com.samsung.android.dialer",
+    "category": "Personalization"
+  },
+  "Aladin E-Book": {
+    "packageName": "kr.co.aladin.ebook",
+    "category": "Books & Reference"
+  },
+  "Toss": {
+    "packageName": "viva.republica.toss",
+    "category": "Finance"
+  },
+  "PenUp": {
+    "packageName": "com.sec.penup",
+    "category": "Social"
+  },
+  "LG Clock": {
+    "packageName": "com.lge.clock",
+    "category": "Social"
+  },
+  "디너의 여왕": {
+    "packageName": "com.dinnerqueen",
+    "category": "Food & Drink"
+  },
+  "데이트팝": {
+    "packageName": "com.tenfingers.seouldatepop",
+    "category": "Entertainment"
+  },
+  "한글 hwp": {
+    "packageName": "com.hancom.office.hwp.editor.hwp_apk",
+    "category": "Tools"
+  },
+  "너랑나랑": {
+    "packageName": "com.endressdreamky.loveting",
+    "category": "Social"
+  },
+  "Android 연락처": {
+    "packageName": "com.android.contacts",
+    "category": "Personalization"
+  },
+  "Android Camera": {
+    "packageName": "com.sec.android.app.camera",
+    "category": "Photography"
+  },
+  "자소설닷컴": {
+    "packageName": "com.anchoreer.jasoseol",
+    "category": "Education"
+  },
+  "Nike Run Club": {
+    "packageName": "com.nike.plusgps",
+    "category": "Health & Fitness"
+  },
+  "Android Clock": {
+    "packageName": "com.sec.android.app.clockpackage",
+    "category": "Personalization"
+  },
+  "Android Settings": {
+    "packageName": "com.android.settings",
+    "category": "Personalization"
+  },
+  "Android Calendar": {
+    "packageName": "com.android.calendar",
+    "category": "Personalization"
+  },
+  "Snapseed": {
+    "packageName": "com.niksoftware.snapseed",
+    "category": "Photography"
+  },
+  "PhotoRetouching": {
+    "packageName": "com.sec.android.mimage.photoretouching",
+    "category": "Photography"
+  },
+  "야놀자": {
+    "packageName": "com.cultsotry.yanolja.nativeapp",
+    "category": "Travel & Local"
+  },
+  "Youtube Vanced": {
+    "packageName": "com.vanced.android.youtube",
+    "category": "Entertainment"
+  },
+  "Samsung fmm": {
+    "packageName": "com.samsung.android.fmm",
+    "category": "Personalization"
+  },
+  "Samsung forest": {
+    "packageName": "com.samsung.android.forest",
+    "category": "Shopping"
+  },
+  "Samsung Contacts": {
+    "packageName": "com.samsung.android.app.contacts",
+    "category": "Utility"
+  },
+  "Samsung mtpApplication": {
+    "packageName": "com.samsung.android.MtpApplication",
+    "category": "Utility"
+  },
+  "Samsung Video": {
+    "packageName": "com.samsung.android.video",
+    "category": "Utility"
+  },
+  "Samsung Themestore": {
+    "packageName": "com.samsung.android.themestore",
+    "category": "Utility"
+  },
+  "Samsung Bixby": {
+    "packageName": "com.samsung.android.bixby.agent",
+    "category": "Utility"
+  },
+  "Samsung GameHome": {
+    "packageName": "com.samsung.android.game.gamehome",
+    "category": "Action"
+  },
+  "Samsung ARzone": {
+    "packageName": "com.samsung.android.arzone",
+    "category": "Entertainment"
   }
 }
