@@ -1,9 +1,10 @@
 import json
 import copy
 from openpyxl import Workbook
+from collections import OrderedDict
 
-data_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
-categories_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\categories.json'
+data_json_path = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\datacollect.json'
+categories_json_path = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\categories.json'
 # CELL_DATE = 1
 CELL_LAST_USED = 6
 CELL_PACKAGE_NAME = 5
@@ -55,29 +56,43 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
     sheet1 = wb.active
     sheet1.title = 'untitled'
     idx = 1
-
+    jsonData = OrderedDict()
+    #appending each user data
     for user_name in users:
+        jsonData[user_name] = {}
         for property in users[user_name]:
-            if property == 'usagestatsCoroutine' or property == 'usagestatsStress':
+            index = 0
+
+            if property == 'usagestatsCoroutine':
+                
                 for coroutines in users[user_name][property]:
+                    if idx>= MAX_CATEGORIES_BY_COROUTINE:
+                        break
                     sheet1.cell(idx, CELL_USER_NAME).value = user_name
+                    jsonData[user_name] = {}
+                    jsonData[user_name]['userName'] = user_name
                     for coroutine_attr in users[user_name][property][coroutines]:
                         # if coroutine_attr == 'date':
                         #     sheet1.cell(idx, CELL_DATE).value = users[user_name][property][coroutines][coroutine_attr]
+                        
                         if coroutine_attr == 'timestamp':
                             sheet1.cell(idx, CELL_TIMESTAMPS).value = str(int(users[user_name][property][coroutines][coroutine_attr]))
+                            jsonData[user_name]['timestamp'] = str(int(users[user_name][property][coroutines][coroutine_attr]))
                         if coroutine_attr == 'statsList':
                             start_idx = idx
                             for element in users[user_name][property][coroutines][coroutine_attr]:
                                 #case1 코루틴의 statsList 개수가 5개가 이상일 경우
-                                if idx - start_idx >= MAX_CATEGORIES_BY_COROUTINE:
-                                    break
+                                
+                                
                                 uncategorizable = False
                                 for stat_attr in element:
                                     # if stat_attr == 'lastTimeUsed':
                                     #     sheet1.cell(idx, CELL_LAST_USED).value = element[stat_attr]
+                                    
                                     if stat_attr == 'packageName':
+                                        jsonData[user_name][index]={}
                                         sheet1.cell(idx, CELL_PACKAGE_NAME).value = element[stat_attr]
+                                        jsonData[user_name][index]['packageName'] =  element[stat_attr]
                                         if element[stat_attr] in categories_dict.keys():
                                             #Integer로 Mapping한 카테고리 dictionary 내에 값이 있는지 확인.
                                             category_value = categories_dict[element[stat_attr]]
@@ -111,14 +126,24 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                             elif category_value == BROWSER_STRING:
                                                 category_label = 14
                                             sheet1.cell(idx, CELL_CATEGORY).value = category_label
+                                            jsonData[user_name][index]['category'] =  category_label
+
                                         else:
                                             #Play store에 없는 APP의 경우.
                                             uncategorizable = True
                                             non_categorizable.add(element[stat_attr])
+                                        
                                     if stat_attr == 'totalTimeInForeground':
                                         sheet1.cell(idx, CELL_TOTAL_TIME_IN_FOREGROUND).value = element[stat_attr]
+                                        jsonData[user_name]['totalTimeInForeground'] = element[stat_attr]
                                         if not uncategorizable:
                                             idx = idx + 1
+
+                                index = index + 1
+                                print(jsonData[user_name])
+                            
+            
+                            
                             #case2 코루틴의 statsList 개수가 5개 미만일 경우
                             if idx - start_idx < MAX_CATEGORIES_BY_COROUTINE:
                                 for i in range(0, MAX_CATEGORIES_BY_COROUTINE - (idx - start_idx)):
@@ -126,10 +151,13 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     sheet1.cell(idx, CELL_PACKAGE_NAME).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_CATEGORY).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_TOTAL_TIME_IN_FOREGROUND).value = PADDING_STATE
+                                    jsonData[user_name]=0
+
                                     idx += 1
+               
 
 
-    wb.save(filename= 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\data.xlsx')
+    wb.save(filename= 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.xlsx')
 
     print(non_categorizable)
 
