@@ -1018,7 +1018,7 @@
   },
   "우리 건강 지킴이": {
     "packageName": "com.jnheo.ourhealth",
-    "category": "Health &  Fitness"
+    "category": "Health & Fitness"
   },
   "미래에셋대우 통합 m.Stock": {
     "packageName": "com.miraeasset.trade",
@@ -1571,7 +1571,7 @@
   },
   "Twitter": {
     "packageName": "com.twitter.android",
-    "category": "SNS"
+    "category": "Social"
   },
   "터치엔 엠백신 for Web(기업용)": {
     "packageName": "com.TouchEn.mVaccine.webs",

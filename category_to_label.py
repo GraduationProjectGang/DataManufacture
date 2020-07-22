@@ -43,7 +43,7 @@ with open(categories_json_path, encoding= 'UTF-8') as json_file:
                     category_label = 1
                 elif category in UTILITY_ARRAY:
                     category_label = 2
-                elif category == 'SNS_STRING':
+                elif category == SNS_STRING:
                     category_label = 3
                 elif category in ENTERTAINMENT_ARRAY:
                     category_label = 4
@@ -57,7 +57,7 @@ with open(categories_json_path, encoding= 'UTF-8') as json_file:
                     category_label = 8
                 elif category == SHOPPING_STRING:
                     category_label = 9
-                elif category == MAPS_VEHICLE_ARRAY:
+                elif category in MAPS_VEHICLE_ARRAY:
                     category_label = 10
                 elif category == HEALTH_STRING:
                     category_label = 11
