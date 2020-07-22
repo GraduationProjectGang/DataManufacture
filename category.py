@@ -6,7 +6,7 @@ data_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacoll
 categories_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\categories.json'
 # CELL_DATE = 1
 CELL_LAST_USED = 6
-CELL_PACKAGE_NAME = 5
+CELL_PACKAGE_NAME = 5 
 CELL_TOTAL_TIME_IN_FOREGROUND = 4
 CELL_TIMESTAMPS = 2
 CELL_USER_NAME = 1
@@ -131,6 +131,5 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
 
     wb.save(filename= 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\data.xlsx')
 
-    print(non_categorizable)
 
 # print(categories_dict)
