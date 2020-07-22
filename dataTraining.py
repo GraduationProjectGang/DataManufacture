@@ -13,20 +13,20 @@ jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.json'
 
 with open(jsonPath, encoding= 'UTF-8') as json_file:
        data = json.load(json_file)
-       print(type(data))
-       userData=[]
+       userDataArray=[]
        for user in data:
               for coroutine in data[user]:
-                     print(coroutine)
-                     userData.append(coroutine)
-       
+                     # print(coroutine)
+                     userData = []
+                     for item in coroutine:
+                            userData.append(coroutine[item])
+                     userDataArray.append(userData)
+                     # print(userDataArray)
+                     
 
-       dataArr = np.array(userData)
+
+       dataArr = np.array(userDataArray)
        #print(type(dataArr))
-       print(dataArr.shape)
-
-       reshaped = dataArr.reshape(1, dataArr.shape[0],6)
-       print(reshaped.shape)
-
-       
+       print(dataArr[dataArr.shape[0]-1])
+       print(dataArr.shape)    
        
