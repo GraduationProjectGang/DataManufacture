@@ -3,11 +3,12 @@ import copy
 from openpyxl import Workbook
 from collections import OrderedDict
 
-data_json_path = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\datacollect.json'
-categories_json_path = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\categories.json'
+data_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
+categories_json_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\categories.json'
+
 # CELL_DATE = 1
 CELL_LAST_USED = 6
-CELL_PACKAGE_NAME = 5
+CELL_PACKAGE_NAME = 5 
 CELL_TOTAL_TIME_IN_FOREGROUND = 4
 CELL_TIMESTAMPS = 2
 CELL_USER_NAME = 1
@@ -62,23 +63,32 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
         jsonData[user_name] = {}
         for property in users[user_name]:
             index = 0
-
             if property == 'usagestatsCoroutine':
-                
                 for coroutines in users[user_name][property]:
+<<<<<<< HEAD
                     
+=======
+                    # if idx>= MAX_CATEGORIES_BY_COROUTINE:
+                    #     break
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                     sheet1.cell(idx, CELL_USER_NAME).value = user_name
-                    jsonData[user_name] = {}
                     jsonData[user_name]['userName'] = user_name
+                    # print(type(jsonData[user_name]))
                     for coroutine_attr in users[user_name][property][coroutines]:
                         # if coroutine_attr == 'date':
                         #     sheet1.cell(idx, CELL_DATE).value = users[user_name][property][coroutines][coroutine_attr]
                         
                         
                         if coroutine_attr == 'timestamp':
+<<<<<<< HEAD
                             sheet1.cell(idx, CELL_TIMESTAMPS).value = int((int(users[user_name][property][coroutines][coroutine_attr])/1000))
                             jsonData[user_name]['timestamp'] = int((int(users[user_name][property][coroutines][coroutine_attr])/1000))
 
+=======
+                            sheet1.cell(idx, CELL_TIMESTAMPS).value = str(int(users[user_name][property][coroutines][coroutine_attr]))
+                            tempTime = str(int(users[user_name][property][coroutines][coroutine_attr]))
+                            jsonData[user_name]['timestamp'] = tempTime
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                         if coroutine_attr == 'statsList':
                             start_idx = idx
                             
@@ -90,7 +100,11 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     # if stat_attr == 'lastTimeUsed':
                                     #     sheet1.cell(idx, CELL_LAST_USED).value = element[stat_attr]
                                     if stat_attr == 'packageName':
+<<<<<<< HEAD
                                         jsonData[user_name][str(index)]={}
+=======
+                                        jsonData[user_name][index] = {}
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                                         sheet1.cell(idx, CELL_PACKAGE_NAME).value = element[stat_attr]
                                         jsonData[user_name][str(index)]['packageName'] =  element[stat_attr]
                                         if element[stat_attr] in categories_dict.keys():
@@ -135,13 +149,17 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                         
                                     if stat_attr == 'totalTimeInForeground':
                                         sheet1.cell(idx, CELL_TOTAL_TIME_IN_FOREGROUND).value = element[stat_attr]
-                                        jsonData[user_name]['totalTimeInForeground'] = element[stat_attr]
+                                        jsonData[user_name][index]['totalTimeInForeground'] = element[stat_attr]
                                         if not uncategorizable:
                                             idx = idx + 1
 
+<<<<<<< HEAD
                             index = index + 1
                             if idx >= MAX_CATEGORIES_BY_COROUTINE:
                                 break
+=======
+                                index = index + 1
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                             
             
                             
@@ -152,14 +170,23 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     sheet1.cell(idx, CELL_PACKAGE_NAME).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_CATEGORY).value = PADDING_STATE
                                     sheet1.cell(idx, CELL_TOTAL_TIME_IN_FOREGROUND).value = PADDING_STATE
+<<<<<<< HEAD
                                     jsonData[user_name][str(index)] = 0
+=======
+
+>>>>>>> bf13dadfa5334b93f6d4e5c2bc1edbbad207e33b
                                     idx += 1
     print(jsonData)
                
 
 
-    wb.save(filename= 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.xlsx')
+    wb.save(filename= 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\data.xlsx')
+    # print(jsonData)
+    
+    file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\before_puls.json'
+    with open(file_path, 'w') as outfile:
+        json.dump(jsonData, outfile)
 
-    print(non_categorizable)
+
 
 # print(categories_dict)
