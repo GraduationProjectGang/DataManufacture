@@ -6,6 +6,8 @@ from datetime import datetime
 import ast
 from collections import OrderedDict
 
+# 1 : 눈 밑, 2 : 눈과 일직선, 3 : 눈 위
+
 def transfer(radian):
     ret = (radian * (180 / math.pi))
     if ret >= 0:
@@ -36,39 +38,26 @@ def posture_y(degree):
         return 1
     else:
         return 0
+        
 
 jsonPath = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
-file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\rotate_stress.json'
+file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\sample_stress.json'
+
 
 with open(jsonPath, encoding= 'UTF-8') as json_file:
     usersData = json.load(json_file)
     users = usersData['user']
+
 
     data = OrderedDict()
 
     for userKey in users:
 
         data[userKey] = {}
-        userName = ''
-
-        stressCountList = list([])
-        stressTimestampList = list([])
-
-        for StressCount in users[userKey]:
-            if StressCount == 'stress':
-                for stresskey in users[userKey][StressCount]:
-                    for stressInfo in users[userKey][StressCount][stresskey]:
-                        if stressInfo == 'timestamp':
-                            stressTimestampList.append(users[userKey][StressCount][stresskey][stressInfo])
-                        elif stressInfo == 'stressCount':
-                            stressCountList.append(users[userKey][StressCount][stresskey][stressInfo])
 
         for rotationVectorStress in users[userKey]:
-
             if rotationVectorStress == 'rotationVecStress':
-                stressCount_index = 0
-                vector_index = 0
-
+                index = 0
                 for rotateVecKey in users[userKey][rotationVectorStress]:
 
                     data_x = np.array([])
@@ -138,24 +127,17 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
 
                         if flag == 2:
 
-                            current_stressCount = 0
-
-                            if stressCount_index >= len(stressCountList):
-                                current_stressCount = 8
-                            else:
-                                current_stressCount = stressCountList[stressCount_index]
-                                stressCount_index += 1
-
-                            data[userKey][vector_index] = {
+                            data[userKey][index] = {
                                 "posture": int(pos),
                                 "posture_accuracy": bincount_x[pos],
                                 "std_posture": float(std_x),
                                 "orientation": int(ori),
                                 "orientation_accuracy": bincount_y[ori],
                                 "std_orientation": float(std_y),
-                                "timestamp": timeStamp,
-                                "stressCount": current_stressCount
+                                "timestamp": timeStamp
                             }
+
+                            index += 1
 
                             posture_list.clear()
                             orientation_list.clear()
@@ -165,13 +147,7 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                             std_x = 0.0
                             std_y = 0.0
                             flag = 0
-                            vector_index += 1
-
-        #     if StressCount == 'userName':
-        #         userName = users[userKey][StressCount]
-
-        # print(userName, stressCountList)
-        # print(userName, stressTimestampList)          
+                        
     
     with open(file_path, 'w') as outfile:
         json.dump(data, outfile)
