@@ -12,7 +12,7 @@ from rotate import getRotateVec
 pp = pprint.PrettyPrinter(indent=4)
 
 def scoreMatching():
-    jsonPath = 'C:\\Users\\sejin\\Desktop\\졸프\\datacollect.json'
+    jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\datacollect.json'
 
     with open(jsonPath, encoding= 'UTF-8') as json_file:
         usersData = json.load(json_file)
@@ -103,20 +103,26 @@ def scoreMatching():
 
                             # rowNum = rowNum + 1
         rotateData = getRotateVec()
+        count = 1
         for userKey in data:
                 for attr in data[userKey]:  
                         for rotateUserKey in rotateData:
                                 for attr_rotate in rotateData[rotateUserKey]:
                                         if userKey == rotateUserKey:
                                                 if  attr['timestamp'] == attr_rotate['timestamp']:
+                                                        
                                                         for iter in attr_rotate:
-                                                                attr[iter] = attr_rotate[iter]
-                                                
+                                                                if iter == 'posture' or iter == 'posture_accuracy' or iter == 'std_posture' or iter == 'orientation':
+                                                                        attr[iter] = attr_rotate[iter]
+                                                                        
+                                           
+        return data
 
-        
-                pp.pprint(data[userKey])
+
 
         # wb.save(filename= 'data2.xlsx')
 
 if __name__ == "__main__":
-    scoreMatching()
+        data = scoreMatching()
+        with open('data.json', 'w') as outfile:
+                json.dump(data, outfile)

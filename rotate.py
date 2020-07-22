@@ -42,7 +42,7 @@ def posture_y(degree):
 
 
 def getRotateVec():
-    jsonPath = 'C:\\Users\\sejin\\Desktop\\졸프\\datacollect.json'
+    jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\datacollect.json'
 
     with open(jsonPath, encoding= 'UTF-8') as json_file:
         usersData = json.load(json_file)
