@@ -32,7 +32,6 @@ def scoreMatching():
         for userName in users:
                 data[userName] = []
                 for property in users[userName]:
-
                         if property == 'location':
                                 for locID in users[userName][property]: #locationID
                                         locItem = users[userName][property][locID]
@@ -75,31 +74,27 @@ def scoreMatching():
 
                                         ifMoving = 1 if speedMax > 1 else 0
                                         data[userName].append({
-                                         "timestamp":timestamp,
-                                         "ifMoving":ifMoving
-                                        })
+                        "user":userName,
+                        "timestamp":timestamp,
+                        "ifMoving":ifMoving
+                        })
+
+                                        # pp.pprint(data[userName])
                         # print(data[userName])
 
-                # if property == 'stress':
-                #     for stressID in users[userName][property]: 
-                #         stressItem = users[userName][property][stressID]
-                #         for item in stressItem:
-                #             if item == "timestamp":
-                #                 timestamp = int(int(users[userName][property][stressID][item])/1000)
-                #                 print(timestamp)
-                #             if item == "stressCount":
-                #                 stressCount = users[userName][property][stressID][item]
-                #                 print(stressCount)            
-
-                #         dict = {"userName":userName, "timestamp":timestamp, "stressCount":stressCount}
-                #         json_val = json.dumps(dict)
-                #         stressJsonList.append(json_val)
-                #         sheet2.cell(row=rowNum, column=1).value = userName
-                #         sheet2.cell(row=rowNum, column=2).value = timestamp
-                #         sheet2.cell(row=rowNum, column=3).value = int(stressCount)
-                #         rowNum = rowNum + 1
+                        # if property == 'stress':
+                        #         for stressID in users[userName][property]: 
+                        #                 stressItem = users[userName][property][stressID]
+                        #                 for item in stressItem:
+                        #                         if item == "timestamp":
+                        #                                 timestamp = int(int(users[userName][property][stressID][item])/1000)
+                        #                                 print(timestamp)
+                        #                         if item == "stressCount":
+                        #                                 stressCount = users[userName][property][stressID][item]
+                        #                                 print(stressCount)            
 
 
+                
 
                             # rowNum = rowNum + 1
         rotateData = getRotateVec()
