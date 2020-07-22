@@ -49,6 +49,7 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
     for userKey in users:
 
         data[userKey] = {}
+        userName = ''
 
         stressCountList = list([])
         stressTimestampList = list([])
@@ -62,8 +63,11 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                         elif stressInfo == 'stressCount':
                             stressCountList.append(users[userKey][StressCount][stresskey][stressInfo])
 
-        print(stressCountList)
-        print(stressTimestampList)
+            if StressCount == 'userName':
+                userName = users[userKey][StressCount]
+
+        print(userName, stressCountList)
+        print(userName, stressTimestampList)
     
 
 
