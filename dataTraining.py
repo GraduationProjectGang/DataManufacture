@@ -7,7 +7,6 @@ from dataclasses import dataclass
 import numpy as np
 from datetime import datetime
 import time
-from rotate import getRotateVec
 import csv
 import tensorflow as tf
 import ast
