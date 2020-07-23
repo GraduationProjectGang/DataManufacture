@@ -8,36 +8,35 @@ import numpy as np
 from datetime import datetime
 import time
 from rotate import getRotateVec
-
-jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.json'
-
-with open(jsonPath, encoding= 'UTF-8') as json_file:
-       data = json.load(json_file)
-       dataArray = [] #all users
-       for user in data:
-              userArray=[] # 5 coArray Maximum
-              for coroutine in data[user]:
-                     coArray = [] #coroutineArray
-                     for item in coroutine:
-                            coArray.append(coroutine[item])
-                     userArray.append(coArray)
-              dataArray.append(userArray)
+import csv
+import keras
 
 
-       print(len(dataArray))
-              
-                     
+filePath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\trainingData.csv'
 
-       # #print(type(dataArr))
-       # print(dataArr[dataArr.shape[0]-1])
-       # print(dataArr.shape)
+trainingData = []
+with open(filePath, encoding= 'UTF-8') as file:
+       data = csv.reader(file)
+
+       print(data)
+       for object in data:
+              trainingData.append(object)
+              # print(object)
+       
+
+
+
+       print(type(trainingData))
+       data = np.ndarray(trainingData)
+       print(data[data.shape[0]-1])
+       print(data.shape)
 
        # with open('realData.json', 'w') as outfile:
        #          json.dump(data, outfile)
        
        # print(type(dataArr))
 
-
+       model = keras.models.Sequential()
 
  
        

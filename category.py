@@ -133,8 +133,6 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                     if idx >= MAX_CATEGORIES_BY_COROUTINE:
                                         break
                                     
-                                    
-            
                             #case2 코루틴의 statsList 개수가 5개 미만일 경우
                             if idx < MAX_CATEGORIES_BY_COROUTINE:
                                 for i in range(MAX_CATEGORIES_BY_COROUTINE - idx):

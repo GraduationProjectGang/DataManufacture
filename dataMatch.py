@@ -8,6 +8,7 @@ import numpy as np
 from datetime import datetime
 import time
 from rotate import getRotateVec
+import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -110,8 +111,31 @@ def scoreMatching():
                                                                 if iter == 'posture' or iter == 'posture_accuracy' or iter == 'std_posture' or iter == 'orientation':
                                                                         attr[iter] = attr_rotate[iter]
                                                                         
-                                           
+        statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
+
+        with open(statspath, encoding= 'UTF-8') as file:
+                statsData = json.load(file)
+
+                for userKey in data:
+                        for item in data[userKey]: #jsonItem - user,timestamp,ifMoving,posture,posture_accuracy,std_posture,orientation
+                                for user in statsData:
+                                        if userKey == user:
+                                                for coroutine in statsData[userKey]:
+                                                        if item['timestamp'] == statsData[userKey][coroutine]['timestamp']:
+                                                                for apps in statsData[userKey][coroutine]:
+                                                                        if len(apps) == 1:
+                                                                                data[userKey][item][apps] = statsData[userKey][coroutine][apps]
+                                                                
+                                                
+
+
+                                
+
+
+
+
         return data
+
 
 
 
@@ -121,3 +145,6 @@ if __name__ == "__main__":
         data = scoreMatching()
         with open('data.json', 'w') as outfile:
                 json.dump(data, outfile)
+        
+
+        pprint.pprint(data['-MAfh2YZ9fJ8BtZKBp7K'])
