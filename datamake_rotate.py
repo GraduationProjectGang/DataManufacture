@@ -38,7 +38,7 @@ def posture_y(degree):
         return 0
 
 jsonPath = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\datacollect.json'
-file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\rotate_stress.json'
+file_path = 'C:\\Users\\sejin\\Documents\\GitHub\\DataManufacture\\rotate_coroutine.json'
 
 with open(jsonPath, encoding= 'UTF-8') as json_file:
     usersData = json.load(json_file)
@@ -59,17 +59,18 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                 for stresskey in users[userKey][StressCount]:
                     for stressInfo in users[userKey][StressCount][stresskey]:
                         if stressInfo == 'timestamp':
-                            stressTimestampList.append(users[userKey][StressCount][stresskey][stressInfo])
+                            temp = int(int(users[userKey][StressCount][stresskey][stressInfo]) / 1000)
+                            stressTimestampList.append(temp)
                         elif stressInfo == 'stressCount':
                             stressCountList.append(users[userKey][StressCount][stresskey][stressInfo])
 
-        for rotationVectorStress in users[userKey]:
+        for rotationVector in users[userKey]:
 
-            if rotationVectorStress == 'rotationVecStress':
+            if rotationVector == 'rotatevector':
                 stressCount_index = 0
                 vector_index = 0
 
-                for rotateVecKey in users[userKey][rotationVectorStress]:
+                for rotateVecKey in users[userKey][rotationVector]:
 
                     data_x = np.array([])
                     data_y = np.array([])
@@ -86,10 +87,10 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
 
                     flag = 0
 
-                    for rotateVecInfo in users[userKey][rotationVectorStress][rotateVecKey]:
+                    for rotateVecInfo in users[userKey][rotationVector][rotateVecKey]:
 
                         if rotateVecInfo == 'angleList':
-                            for veclist in users[userKey][rotationVectorStress][rotateVecKey][rotateVecInfo]:
+                            for veclist in users[userKey][rotationVector][rotateVecKey][rotateVecInfo]:
                                 list_data = ast.literal_eval(veclist)
                                 x_list.append(list_data[0])
                                 y_list.append(list_data[1])
@@ -129,7 +130,7 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
                             flag = 1
 
                         if rotateVecInfo == 'timestamp':
-                            dateTime = users[userKey][rotationVectorStress][rotateVecKey][rotateVecInfo]
+                            dateTime = users[userKey][rotationVector][rotateVecKey][rotateVecInfo]
                             timestamp = time.mktime(datetime.strptime(dateTime, '%Y%m%d.%H:%M:%S').timetuple())
                             timeStamp = timestamp
 
@@ -138,13 +139,31 @@ with open(jsonPath, encoding= 'UTF-8') as json_file:
 
                         if flag == 2:
 
-                            current_stressCount = 0
+                            current_stressCount = -1
 
-                            if stressCount_index >= len(stressCountList):
-                                current_stressCount = 8
-                            else:
-                                current_stressCount = stressCountList[stressCount_index]
-                                stressCount_index += 1
+                            for idx in range(0, (len(stressTimestampList) - 1)):
+                                #print(int(timeStamp), " ", int(stressTimestampList[idx]), " ", int(stressTimestampList[idx + 1]))
+                                if (int(timeStamp) >= int(stressTimestampList[idx])) and (int(timeStamp) < int(stressTimestampList[idx + 1])):
+                                    if (int(timeStamp) - int(stressTimestampList[idx])) > (int(stressTimestampList[idx + 1]) - int(timeStamp)):
+                                        current_stressCount = stressCountList[idx + 1]
+                                        stressCount_index = idx + 1
+                                    else:
+                                        current_stressCount = stressCountList[idx]
+                                        stressCount_index = idx
+
+                                if idx == 0 and current_stressCount == -1:
+                                    current_stressCount = stressCountList[0]
+                                
+                                if idx == len(stressTimestampList) - 2 and current_stressCount == -1:
+                                    #print(int(timeStamp), " ", int(stressTimestampList[idx]), " ", int(stressTimestampList[idx + 1]))
+                                    current_stressCount = stressCountList[idx + 1]
+
+
+                            # if stressCount_index >= len(stressCountList):
+                            #     current_stressCount = 8
+                            # else:
+                            #     current_stressCount = stressCountList[stressCount_index]
+                            #     stressCount_index += 1
 
                             data[userKey][vector_index] = {
                                 "posture": int(pos),
