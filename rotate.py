@@ -149,6 +149,7 @@ def getRotateVec():
                                     "orientation_accuracy": bincount_y[ori],
                                     "std_orientation": float(std_y),
                                     "timestamp": timeStamp
+                                    
                                 })
 
                                 # sheet1.cell(row=rowNum, column=1).value = userKey

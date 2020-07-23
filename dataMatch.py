@@ -7,13 +7,13 @@ from dataclasses import dataclass
 import numpy as np
 from datetime import datetime
 import time
-from rotate import getRotateVec
+from datamake_rotate import getRotateVec
 import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
 def scoreMatching():
-    jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\datacollect.json'
+    jsonPath = 'C:\\Users\\Team6\\DataManufacture\\DataManufacture\\datacollect.json'
 
     with open(jsonPath, encoding= 'UTF-8') as json_file:
         usersData = json.load(json_file)
@@ -108,23 +108,24 @@ def scoreMatching():
                                                 if  attr['timestamp'] == attr_rotate['timestamp']:
                                                         
                                                         for iter in attr_rotate:
-                                                                if iter == 'posture' or iter == 'posture_accuracy' or iter == 'std_posture' or iter == 'orientation':
+                                                                if iter == 'posture' or iter == 'posture_accuracy' or iter == 'std_posture' or iter == 'orientation' or iter == 'stressCount':
                                                                         attr[iter] = attr_rotate[iter]
+
                                                                         
-        statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
+        # statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
 
-        with open(statspath, encoding= 'UTF-8') as file:
-                statsData = json.load(file)
+        # with open(statspath, encoding= 'UTF-8') as file:
+        #         statsData = json.load(file)
 
-                for userKey in data:
-                        for item in data[userKey]: #jsonItem - user,timestamp,ifMoving,posture,posture_accuracy,std_posture,orientation
-                                for user in statsData:
-                                        if userKey == user:
-                                                for coroutine in statsData[userKey]:
-                                                        if item['timestamp'] == statsData[userKey][coroutine]['timestamp']:
-                                                                for apps in statsData[userKey][coroutine]:
-                                                                        if len(apps) == 1:
-                                                                                data[userKey][item][apps] = statsData[userKey][coroutine][apps]
+        #         for userKey in data:
+        #                 for item in data[userKey]: #jsonItem - user,timestamp,ifMoving,posture,posture_accuracy,std_posture,orientation
+        #                         for user in statsData:
+        #                                 if userKey == user:
+        #                                         for coroutine in statsData[userKey]:
+        #                                                 if item['timestamp'] == statsData[userKey][coroutine]['timestamp']:
+        #                                                         for apps in statsData[userKey][coroutine]:
+        #                                                                 if len(apps) == 1:
+        #                                                                         data[userKey][item][apps] = statsData[userKey][coroutine][apps]
                                                                 
                                                 
 

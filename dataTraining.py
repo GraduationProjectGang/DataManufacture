@@ -7,13 +7,14 @@ from dataclasses import dataclass
 import numpy as np
 from datetime import datetime
 import time
+from rotate import getRotateVec
 import csv
 import tensorflow as tf
 import ast
 import matplotlib.pyplot as plt
 
-filePath_data = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\trainingData.csv'
-filePath_stress = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\stressData.csv'
+filePath_data = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\trainingData.csv'
+filePath_stress = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\stressData.csv'
 
 trainingData_x = []
 trainingData_y = []
@@ -25,20 +26,16 @@ with open(filePath_data, encoding= 'UTF-8') as file:
               trainingData.append(object)
               # print(object)
 
-       trainingData_temp = []
-       for item in trainingData:
-              for each in item:
-                     
-                     if len(each) == 0:
-                            print("im gang")
-                     else:
-                            trainingData_temp.append(ast.literal_eval(each))
-                     # print(each)
+       trainingData_temp = ast.literal_eval(trainingData)
+       
+      # print(len(trainingData))
+       for item in trainingData_temp:
+              temp = ast.literal_eval(item)
+              if len(temp) == 0:
+                     print("im gang")
+              else:
+                     trainingData_x = np.ndarray(temp)
 
-       # trainingData_temp = ast.literal_eval(trainingData)
-                     
-
-print(len(trainingData_temp))
 y = []
        
 with open(filePath_stress, encoding= 'UTF-8') as file:
