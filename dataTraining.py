@@ -51,7 +51,7 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
                      #print(real)
                      trainingData_y.append(real)
 
-       print(len(trainingData_y))
+       # print(len(trainingData_y))
 
        real_y = list([])
 
@@ -59,7 +59,7 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
               if i % 5 == 0:
                      real_y.append(trainingData_y[i])
 
-       print(real_y)
+       # print(real_y)
        
       # print(len(trainingData))
 
@@ -70,8 +70,8 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
        #               trainingData_y = np.ndarray(temp)
 
 
-print(type(trainingData_x))
-print(type(trainingData_y))
+print(len(trainingData_x))
+print(len(real_y))
 
        # 훈련셋과 검증셋 분리
 x_val = trainingData_x[3000:]
