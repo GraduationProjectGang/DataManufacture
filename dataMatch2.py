@@ -25,7 +25,6 @@ with open(statspath, encoding= 'UTF-8') as file:
             for user in statsData:
                 if userKey == user:
                     for coroutine in statsData[userKey]:
-                        
                         index = 0 
                         if item['timestamp'] == statsData[userKey][coroutine]['timestamp']:
                             dataAll[coroutine] = []

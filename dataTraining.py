@@ -12,8 +12,8 @@ import tensorflow as tf
 import ast
 import matplotlib.pyplot as plt
 
-filePath_data = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\trainingData.csv'
-filePath_stress = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\stressData.csv'
+filePath_data = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\trainingData.csv'
+filePath_stress = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\stressData.csv'
 
 trainingData_x = []
 trainingData_y = []
@@ -25,16 +25,20 @@ with open(filePath_data, encoding= 'UTF-8') as file:
               trainingData.append(object)
               # print(object)
 
-       trainingData_temp = ast.literal_eval(trainingData)
-       
-      # print(len(trainingData))
-       for item in trainingData_temp:
-              temp = ast.literal_eval(item)
-              if len(temp) == 0:
-                     print("im gang")
-              else:
-                     trainingData_x = np.ndarray(temp)
+       trainingData_temp = []
+       for item in trainingData:
+              for each in item:
+                     
+                     if len(each) == 0:
+                            print("im gang")
+                     else:
+                            trainingData_temp.append(ast.literal_eval(each))
+                     # print(each)
 
+       # trainingData_temp = ast.literal_eval(trainingData)
+                     
+
+print(len(trainingData_temp))
 y = []
        
 with open(filePath_stress, encoding= 'UTF-8') as file:
@@ -42,17 +46,30 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
        for object in data:
               y.append(object)
               # print(object)
+       for item in y:
+              for real in item:
+                     #print(real)
+                     trainingData_y.append(real)
 
-       trainingData_temp = ast.literal_eval(y)
+       print(len(trainingData_y))
+
+       real_y = list([])
+
+       for i in range(0, 15555):
+              if i % 5 == 0:
+                     real_y.append(trainingData_y[i])
+
+       print(real_y)
        
       # print(len(trainingData))
-       for item in real_data:
-              temp = ast.literal_eval(item)
-              if len(temp) == 0:
-                     print("im gang")
-              else:
-                     trainingData_y = np.ndarray(temp)
-       
+
+       # for item in trainingData_temp:
+       #        if len(temp) == 0:
+       #               print("im gang")
+       #        else:
+       #               trainingData_y = np.ndarray(temp)
+
+
 print(type(trainingData_x))
 print(type(trainingData_y))
 
