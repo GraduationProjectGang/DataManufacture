@@ -12,12 +12,21 @@ import csv
 import tensorflow as tf
 import ast
 import matplotlib.pyplot as plt
+from keras.datasets import reuters
+from keras.utils import np_utils
+from keras.preprocessing import sequence
+from keras.models import Sequential
+from keras.layers import Dense, Embedding, LSTM
+from keras.layers import Flatten
 
-filePath_data = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\trainingData.csv'
-filePath_stress = 'C:\\Users\\Team6\\Documents\\DataManufacture\\DataManufacture\\stressData.csv'
+filePath_data = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\trainingData.csv'
+filePath_stress = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\stressData.csv'
 
 trainingData_x = []
 trainingData_y = []
+
+max_features = 15000
+text_max_words = 120
 
 with open(filePath_data, encoding= 'UTF-8') as file:
        trainingData = []
@@ -26,15 +35,22 @@ with open(filePath_data, encoding= 'UTF-8') as file:
               trainingData.append(object)
               # print(object)
 
-       trainingData_temp = ast.literal_eval(trainingData)
        
       # print(len(trainingData))
-       for item in trainingData_temp:
-              temp = ast.literal_eval(item)
-              if len(temp) == 0:
-                     print("im gang")
-              else:
-                     trainingData_x = np.ndarray(temp)
+       trainingData_temp = []
+       for item in trainingData:
+              for each in item:
+                     
+                     if len(each) == 0:
+                            print("im gang")
+                     else:
+                            trainingData_temp.append(ast.literal_eval(each))
+                     # print(each)
+
+       # trainingData_temp = ast.literal_eval(trainingData)
+                     
+
+print(len(trainingData_temp))
 
 y = []
        
@@ -48,6 +64,7 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
                      #print(real)
                      trainingData_y.append(real)
 
+       print(len(trainingData_y))
        # print(len(trainingData_y))
 
        real_y = list([])
@@ -86,7 +103,7 @@ model.add(Dense(46, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # 4. 모델 학습시키기
-hist = model.fit(x_train, y_train, epochs=10, batch_size=64, validation_data=(x_val, y_val))
+hist = model.fit(x_train, y_train, epochs=10, batch_size=100, validation_data=(x_val, y_val))
 
 # 5. 학습과정 살펴보기
 
