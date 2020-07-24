@@ -30,73 +30,52 @@ trainingData_y = []
 
 
 with open(filePath_data, encoding= 'UTF-8') as file:
-       trainingData = []
        data = csv.reader(file)
 
        for object in data:
-              trainingData.append(object)
+              trainingData_x.append(object)
               # print(object)
+       
+       # trainingData_temp = []
+       # for item in trainingData:
+       #        for each in item:
+       #               if each == "":
+       #                      print("im gang")
+       #               else:
+       #                      trainingData_temp.append(ast.literal_eval(each))
+       #               # print(each)
+       #        print(len(trainingData_x))
+       #        trainingData_x.append(trainingData_temp)
 
-       trainingData_temp = []
-       for item in trainingData:
-              for each in item:
-                     if each == "":
-                            print("im gang")
-                     else:
-                            trainingData_temp.append(ast.literal_eval(each))
-                     print(each)
-              print(len(trainingData_x))
-              trainingData_x.append(trainingData_temp)
 
-       real_x = []
-
-       for item in trainingData_x:
-              if not item:
-                     # del trainingData_x.index(item)
-                     print("ddd")
-              else:
-                     real_x.append(item)
-       # trainingData_temp = ast.literal_eval(trainingData)
 y = []
        
 with open(filePath_stress, encoding= 'UTF-8') as file:
        data = csv.reader(file)
-       for object in data:
-              y.append(object)
-              # print(object)
-       for item in y:
-              for real in item:
-                     #print(real) x
-                     trainingData_y.append(real)
-
-
-       real_y = list([])
-
-       for i in range(0, 15555):
-              if i % 5 == 0:
-                     real_y.append(trainingData_y[i])
-
-       # print(real_y)
-
-      
+       for list in data:
+              for stressCount in list:
+                     trainingData_y.append(stressCount)
        
-      # print(len(trainingData))
-
-       # for item in trainingData_temp:
-       #        if len(temp) == 0:
-       #               print("im gang")
-       #        else:
-       #               trainingData_y = np.ndarray(temp)
+       # for object in data:
+       #        y.append(object)
+       #        # print(object)
+       # for item in y:
+       #        for real in item:
+       #               #print(real) x
+       #               trainingData_y.append(real)
 
 
 print(len(trainingData_x))
-print(len(real_y))
+print(len(trainingData_y))
+
+
+
 
        # 훈련셋과 검증셋 분리
 x_val = trainingData_x[3000:]
-y_val = real_y[3000:]
+y_val = trainingData_y[3000:]
 x_train = trainingData_x[:3000]
-y_train = real_y[:3000]
+y_train = trainingData_y[:3000]
 
 # 2. 모델 구성하기
 model = Sequential()
