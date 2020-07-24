@@ -18,20 +18,25 @@ from keras.preprocessing import sequence
 from keras.models import Sequential
 from keras.layers import Dense, Embedding, LSTM
 from keras.layers import Flatten
+max_features = 15000
+text_max_words = 120
 
-<<<<<<< HEAD
+
 filePath_data = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\trainingData.csv'
 filePath_stress = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\stressData.csv'
-=======
-filePath_data = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\trainingData.csv'
-filePath_stress = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\stressData.csv'
->>>>>>> f6ce2a89da8649aeef60580e0bdf87ff1c029e34
 
 trainingData_x = []
 trainingData_y = []
 
-max_features = 15000
-text_max_words = 120
+
+
+
+
+
+
+
+
+
 
 with open(filePath_data, encoding= 'UTF-8') as file:
        trainingData = []
@@ -40,11 +45,6 @@ with open(filePath_data, encoding= 'UTF-8') as file:
               trainingData.append(object)
               # print(object)
 
-<<<<<<< HEAD
-=======
-       
-      # print(len(trainingData))
->>>>>>> f6ce2a89da8649aeef60580e0bdf87ff1c029e34
        trainingData_temp = []
        for item in trainingData:
               for each in item:
@@ -56,13 +56,6 @@ with open(filePath_data, encoding= 'UTF-8') as file:
                      # print(each)
 
        # trainingData_temp = ast.literal_eval(trainingData)
-<<<<<<< HEAD
-=======
-                     
-
-print(len(trainingData_temp))
-
->>>>>>> f6ce2a89da8649aeef60580e0bdf87ff1c029e34
 y = []
        
 with open(filePath_stress, encoding= 'UTF-8') as file:
@@ -75,11 +68,6 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
                      #print(real)
                      trainingData_y.append(real)
 
-       print(len(trainingData_y))
-<<<<<<< HEAD
-=======
-       # print(len(trainingData_y))
->>>>>>> f6ce2a89da8649aeef60580e0bdf87ff1c029e34
 
        real_y = list([])
 
@@ -119,7 +107,7 @@ model.add(Dense(46, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # 4. 모델 학습시키기
-hist = model.fit(x_train, y_train, epochs=10, batch_size=100, validation_data=(x_val, y_val))
+hist = model.fit(x_train, y_train, epochs=10, batch_size=64, validation_data=(x_val, y_val))
 
 # 5. 학습과정 살펴보기
 
