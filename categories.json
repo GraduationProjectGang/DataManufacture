@@ -1419,6 +1419,14 @@
       "packageName": "com.google.android.projection.gearhead",
       "category": "Auto & Vehicles"
     },
+    "Samsung messaging": {
+      "packageName": "com.samsung.android.messaging",
+      "category": "Communication"
+    },
+    "Anipang 4": {
+      "packageName": "com.sundaytoz.kakao.anipang4",
+      "category": "Action"
+    },
     "공인회계사 기출문제": {
       "packageName": "kr.co.trutory.license.account",
       "category": "Education"

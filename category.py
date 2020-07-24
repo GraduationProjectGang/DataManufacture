@@ -65,6 +65,7 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                 for coroutines in users[user_name][property]:
                     jsonData[user_name][coroutines] = {}
                     idx = 0
+                    temp = users[user_name][property][coroutines]
                     for coroutine_attr in users[user_name][property][coroutines]:
                         # if coroutine_attr == 'date':
                         #     sheet1.cell(idx, CELL_DATE).value = users[user_name][property][coroutines][coroutine_attr]
@@ -75,6 +76,7 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                         if coroutine_attr == 'statsList': # each app
                             start_idx = idx
                             for element in users[user_name][property][coroutines][coroutine_attr]:
+                                
                                 #case1 코루틴의 statsList 개수가 5개가 이상일 경우
                                 uncategorizable = False
                                 for stat_attr in element: 
@@ -134,16 +136,17 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                                         break
                                     
                             #case2 코루틴의 statsList 개수가 5개 미만일 경우
-                            if idx < MAX_CATEGORIES_BY_COROUTINE:
+                            if idx < MAX_CATEGORIES_BY_COROUTINE and idx > 0:
                                 for i in range(MAX_CATEGORIES_BY_COROUTINE - idx):
                                     jsonData[user_name][coroutines][str(idx)] = 0
                                     idx += 1
                                     if idx >= MAX_CATEGORIES_BY_COROUTINE: break
-
-                            if idx == 0:#statslist가 없으면
-                                for i in range(5):
-                                    jsonData[user_name][coroutines][str(i)] = 0
-                                    
+                        this = users[user_name][property][coroutines].keys()
+                        if 'statsList' not in users[user_name][property][coroutines].keys():#statslist가 없으면
+                            for i in range(5):
+                                jsonData[user_name][coroutines][str(i)] = 0
+                            print(jsonData[user_name][coroutines])
+                                
 
     pp = pprint.PrettyPrinter(width=41, compact=True)
     # pp.pprint(jsonData)
@@ -151,15 +154,17 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
 
     for user in jsonData:
         for eachCoroutine in jsonData[user]:
-            print(user)
-            print(eachCoroutine)
+            # print(user)
+            # print(eachCoroutine)
             if '0' and '4' in jsonData[user][eachCoroutine]:
-                print(jsonData[user][eachCoroutine]['0'])
-                print(jsonData[user][eachCoroutine]['4'])
+                # print(jsonData[user][eachCoroutine]['0'])
+                # print(jsonData[user][eachCoroutine]['4'])
                 jsonData[user][eachCoroutine]['0'],jsonData[user][eachCoroutine]['4'] = jsonData[user][eachCoroutine]['4'],jsonData[user][eachCoroutine]['0']
                 jsonData[user][eachCoroutine]['1'],jsonData[user][eachCoroutine]['3'] = jsonData[user][eachCoroutine]['3'],jsonData[user][eachCoroutine]['1']
-                print(jsonData[user][eachCoroutine]['4'])
-                print(jsonData[user][eachCoroutine]['0'])
+                # print(jsonData[user][eachCoroutine]['4'])
+                # print(jsonData[user][eachCoroutine]['0'])
+
+
                 # for eachApp in eachCoroutine:
 
                 #     if eachApp == '0':
@@ -171,6 +176,14 @@ with open(data_json_path, encoding= 'UTF-8') as json_file:
                 #         jsonData[user]['4']['category'] = category_temp
                 #         jsonData[user][['4']]['totalTimeInForeground'] = total_temp
 
+    coindex = 0
+    for user in jsonData:
+        for each in jsonData[user]:
+            item = jsonData[user][each] #eachCoroutine
+            coindex += 1
+            print(item)
+    print(coindex)
+    
     
     file_path = "C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json"
     with open(file_path, 'w') as outfile:

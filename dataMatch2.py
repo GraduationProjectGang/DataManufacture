@@ -31,29 +31,45 @@ with open(statspath, encoding= 'UTF-8') as file:
                         index = 0 
                         if item['timestamp'] == statsData[userKey][coroutine]['timestamp']:
                             dataAll[coroutine] = []
+                            stressCount = int(item['stressCount'])
+                            if stressCount >=0 and stressCount <= 3:
+                                stressLabel = 1
+                            if stressCount >=4 and stressCount <= 7 :
+                                stressLabel = 2
+                            if stressCount >=8 and stressCount <= 11:
+                                stressLabel = 3
+                            if stressCount >=12 and stressCount <= 16:
+                                stressLabel = 4
+                            addFlag = True
                             for apps in statsData[userKey][coroutine]:
+                                
                                 if len(apps) == 1:#timestamp가 아니라 app이면
                                     temp = statsData[userKey][coroutine][apps]
 
-                                    stressCount = int(item['stressCount'])
-                                    if stressCount >=0 and stressCount <= 3:
-                                        stressLabel = 1
-                                    if stressCount >=4 and stressCount <= 7 :
-                                        stressLabel = 2
-                                    if stressCount >=8 and stressCount <= 11:
-                                        stressLabel = 3
-                                    if stressCount >=12 and stressCount <= 16:
-                                        stressLabel = 4
-                                    stressArr.append(stressLabel)
+                                    
                                     if temp == 0:
                                         dataAll[coroutine].append([item['user'],item['timestamp'],item['ifMoving'],item['orientation'],item['posture'],item['posture_accuracy'],item['std_posture'],0,0])
-                                        # print(dataAll[coroutine][len(dataAll[coroutine]-1)])                            
-                                    else:
+                                        # print(dataAll[coroutine][len(dataAll[coroutine]-1)])    
+                                                             
+                                    elif 'category' in temp:
                                         dataAll[coroutine].append([item['user'],item['timestamp'],item['ifMoving'],item['orientation'],item['posture'],item['posture_accuracy'],item['std_posture'],temp['category'],temp['totalTimeInForeground']])
-                                        # print(dataAll[coroutine][len(dataAll[coroutine]-1)])                               
-                                    
+                                        # print(dataAll[coroutine][len(dataAll[coroutine]-1)])
+                                        # stressArr.append(stressLabel)
+                                                                      
+                                    else:
+                                        addFlag = False
                                     index += 1
 
+                            if addFlag is True:
+                                stressArr.append(stressLabel)
+                            else:
+                                print(dataAll[coroutine])
+                                del dataAll[coroutine]
+                                
+                                    
+
+print(len(dataAll))
+print(len(stressArr))
 with open('trainingData.csv','w',newline='') as file:
     for i in list(dataAll.values()):
         cw = csv.writer(file)
