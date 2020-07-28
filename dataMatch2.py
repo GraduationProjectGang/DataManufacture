@@ -11,8 +11,8 @@ from rotate import getRotateVec
 import pprint 
 import csv   
     
-jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.json'
-statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
+jsonPath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\data.json'
+statspath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\appstats.json'
 dataAll={}
 stressArr = []
 
@@ -48,11 +48,11 @@ with open(statspath, encoding= 'UTF-8') as file:
 
                                     
                                     if temp == 0:
-                                        dataAll[coroutine].append([item['user'],item['timestamp'],item['ifMoving'],item['orientation'],item['posture'],item['posture_accuracy'],item['std_posture'],0,0])
+                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],0,0])
                                         # print(dataAll[coroutine][len(dataAll[coroutine]-1)])    
                                                              
                                     elif 'category' in temp:
-                                        dataAll[coroutine].append([item['user'],item['timestamp'],item['ifMoving'],item['orientation'],item['posture'],item['posture_accuracy'],item['std_posture'],temp['category'],temp['totalTimeInForeground']])
+                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],temp['category'],temp['totalTimeInForeground']])
                                         # print(dataAll[coroutine][len(dataAll[coroutine]-1)])
                                         # stressArr.append(stressLabel)
                                                                       
