@@ -11,8 +11,8 @@ from rotate import getRotateVec
 import pprint 
 import csv   
     
-jsonPath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\data.json'
-statspath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\appstats.json'
+jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.json'
+statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
 dataAll={}
 stressArr = []
 
@@ -33,13 +33,13 @@ with open(statspath, encoding= 'UTF-8') as file:
                             dataAll[coroutine] = []
                             stressCount = int(item['stressCount'])
                             if stressCount >=0 and stressCount <= 3:
-                                stressLabel = 1
+                                stressLabel = 0
                             if stressCount >=4 and stressCount <= 7 :
-                                stressLabel = 2
+                                stressLabel = 1
                             if stressCount >=8 and stressCount <= 11:
-                                stressLabel = 3
+                                stressLabel = 2
                             if stressCount >=12 and stressCount <= 16:
-                                stressLabel = 4
+                                stressLabel = 3
                             addFlag = True
                             for apps in statsData[userKey][coroutine]:
                                 
