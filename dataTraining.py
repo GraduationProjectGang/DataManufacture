@@ -67,6 +67,7 @@ print(y_train)
 # stateful : 상태 유지 여부
 model = Sequential()
 model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,5)))
+model.add(Dropout(0.5))
 model.add(Dense(one_hot_vec_size, activation='softmax'))
 
 # 3. 모델 학습과정 설정하기
@@ -83,7 +84,7 @@ print(x_train)
 #        model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2, validation_data=(x_val, y_val), shuffle=False)
 #        model.reset_states()
 
-hist = model.fit(x_train, y_train, epochs=500, batch_size=1, validation_data=(x_val, y_val))
+hist = model.fit(x_train, y_train, epochs=40, batch_size=1, validation_data=(x_val, y_val))
 # hist = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val), callbacks= [print_weights])
 
 # 5. 학습과정 살펴보기
