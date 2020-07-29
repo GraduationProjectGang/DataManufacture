@@ -18,11 +18,10 @@ from keras.datasets import reuters
 from keras.utils import np_utils
 from keras.preprocessing import sequence
 from keras.models import Sequential
-from keras.layers import Dense, Embedding, LSTM
+from keras.layers import Dense, Embedding, LSTM, Dropout
 from keras.layers import Flatten
-
-max_features = 15000
-text_max_words = 120
+from keras import regularizers, optimizers
+from keras.callbacks import LambdaCallback, ModelCheckpoint
 
 filePath_data = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\trainingData.csv'
 filePath_stress = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\stressData.csv'
@@ -30,109 +29,64 @@ filePath_stress = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\stressD
 trainingData_x = []
 trainingData_y = []
 
-
 with open(filePath_data, encoding= 'UTF-8') as file:
        data = csv.reader(file)
 
-  
-       
        for object in data:
-              # trainingData_x.append(object)
-              # print(object)
               dummy_list = []
               for each in object:
                      each = ast.literal_eval(each)
                      map(float, each)
                      dummy_list.append(each)
 
-                   
-                     
-        
               trainingData_x.append(dummy_list)
-              
 
-       # trainingData_temp = []
-       # for item in trainingData:
-       #        for each in item:
-       #               if each == "":
-       #                      print("im gang")
-       #               else:
-       #                      trainingData_temp.append(ast.literal_eval(each))
-       #               # print(each)
-       #        print(len(trainingData_x))
-       #        trainingData_x.append(trainingData_temp)
-
-
-y = []
-       
 with open(filePath_stress, encoding= 'UTF-8') as file:
        data = csv.reader(file)
        for list in data:
               for stressCount in list:
                      trainingData_y.append(float(stressCount))
-       
-       # for object in data:
-       #        y.append(object)
-       #        # print(object)
-       # for item in y:
-       #        for real in item:
-       #               #print(real) x
-       #               trainingData_y.append(real)
-
-
-
 
 trainingData_x = np.array(trainingData_x)
 
-trainingData_x = trainingData_x / trainingData_x.max(axis=0)
-trainingData_x = trainingData_x - trainingData_x.mean(axis=0).reshape(1,5,6)
+trainingData_x = (trainingData_x - trainingData_x.min(axis=0)) / (trainingData_x.max(axis=0) - trainingData_x.min(axis=0))
 # trainingData_x = trainingData_x.tolist()
+trainingData_x = np.reshape(trainingData_x, (4014, 5, 5))
 
-trainingData_y = np.array(trainingData_y)
+x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.25)
 
-trainingData_y = trainingData_y / trainingData_y.max()
-trainingData_y = trainingData_y - trainingData_y.mean(axis=0).reshape(1)
-# trainingData_y = trainingData_y.tolist()
-
-# print(trainingData_x)
-print(trainingData_x.shape)
-
-# 훈련셋과 검증셋 분리
-# x_train = trainingData_x
-# y_train = trainingData_y[3000:]
-# x_val = trainingData_x[:3000]
-# y_val = trainingData_y[:3000]
-x_train,x_val,y_train,y_val = train_test_split(trainingData_x,trainingData_y,test_size = 0.25)
-print(len(x_train))
-print(len(y_train))
-print(len(x_val))
-print(len(y_val))
-print(x_train[-1])
-print(y_train[-1])
-
-
-
-# mean = x_train.mean(axis=0)
-# std = x_train.std(axis=0)
-# x_train = (x_train - mean) / std
-# x_train = (x_train - mean) / std # test_data도 train_data의 평균과 표준편차를 이용
-
+y_train = np_utils.to_categorical(y_train)
+y_val = np_utils.to_categorical(y_val)
+one_hot_vec_size = y_train.shape[1]
+print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape)
+print(y_train)
 
 # 2. 모델 구성하기
+# Dense란 ? 입력 하나에 출력 세 개 (첫번째가 학습해야할 weight 수, input dim이 입력) timestep 이 input length
+# return sequences : 매 번 출력함
+# stateful : 상태 유지 여부
 model = Sequential()
-model.add(LSTM(128))
-model.add(Dense(16,input_shape=(8,),activation='relu'))
-model.add(Dense(32,activation='relu'))
-model.add(Dense(1, activation='softmax'))
+model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,5)))
+model.add(Dense(one_hot_vec_size, activation='softmax'))
 
 # 3. 모델 학습과정 설정하기
-model.compile(loss='MSE', optimizer='adam', metrics=['accuracy'])
+adam = optimizers.Adam(learning_rate=0.01, clipvalue=2.0)
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # 4. 모델 학습시키기
-hist = model.fit(x_train, y_train, epochs=30, batch_size=50, validation_data=(x_val, y_val))
+
+print(x_train)
+
+# num_epochs = 2000
+# for i in range(num_epochs):
+#        print( 'epochs: {}'.format(i))
+#        model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2, validation_data=(x_val, y_val), shuffle=False)
+#        model.reset_states()
+
+hist = model.fit(x_train, y_train, epochs=500, batch_size=1, validation_data=(x_val, y_val))
+# hist = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val), callbacks= [print_weights])
 
 # 5. 학습과정 살펴보기
-
 
 fig, loss_ax = plt.subplots()
 
@@ -156,6 +110,12 @@ acc_ax.legend(loc='lower left')
 plt.show()
 
 # 6. 모델 평가하기
-loss_and_metrics = model.evaluate(x_val, y_val, batch_size=64)
+loss_and_metrics = model.evaluate(x_val, y_val, batch_size=1)
 print('## evaluation loss and_metrics ##')
 print(loss_and_metrics)
+
+
+model_json = model.to_json()
+with open("model.json", "w") as json_file : 
+    json_file.write(model_json)
+
