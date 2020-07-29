@@ -59,75 +59,74 @@ trainingData_x = (trainingData_x - trainingData_x.min(axis=0)) / (trainingData_x
 # trainingData_x = trainingData_x.tolist()
 trainingData_x = np.reshape(trainingData_x, (4014, 5, 5))
 
-one_hot_vec_size = y_train.shape[1]
-print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape)
-print(y_train)
+# print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape)
+# print(y_train)
 
 # 테스트 트레인 분리
 while True:
-x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.25)
+       x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.25)
 
-y_train = np_utils.to_categorical(y_train)
-y_val = np_utils.to_categorical(y_val)
+       y_train = np_utils.to_categorical(y_train)
+       y_val = np_utils.to_categorical(y_val)
+       one_hot_vec_size = y_train.shape[1]
 
+       # 2. 모델 구성하기
+       # Dense란 ? 입력 하나에 출력 세 개 (첫번째가 학습해야할 weight 수, input dim이 입력) timestep 이 input length
+       # return sequences : 매 번 출력함
+       # stateful : 상태 유지 여부
+       model = Sequential()
+       model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,5)))
+       model.add(Dropout(0.5))
+       model.add(Dense(one_hot_vec_size, activation='softmax'))
 
-# 2. 모델 구성하기
-# Dense란 ? 입력 하나에 출력 세 개 (첫번째가 학습해야할 weight 수, input dim이 입력) timestep 이 input length
-# return sequences : 매 번 출력함
-# stateful : 상태 유지 여부
-model = Sequential()
-model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(10,5,5)))
-model.add(Dropout(0.5))
-model.add(Dense(one_hot_vec_size, activation='softmax'))
+       # 3. 모델 학습과정 설정하기
+       adam = optimizers.Adam(learning_rate=0.01, clipvalue=2.0)
+       model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-# 3. 모델 학습과정 설정하기
-adam = optimizers.Adam(learning_rate=0.01, clipvalue=2.0)
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+       # 4. 모델 학습시키기
 
-# 4. 모델 학습시키기
+       # print(x_train)
 
-print(x_train)
+       # num_epochs = 2000
+       # for i in range(num_epochs):
+       #        print( 'epochs: {}'.format(i))
+       #        model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2, validation_data=(x_val, y_val), shuffle=False)
+       #        model.reset_states()
 
-# num_epochs = 2000
-# for i in range(num_epochs):
-#        print( 'epochs: {}'.format(i))
-#        model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2, validation_data=(x_val, y_val), shuffle=False)
-#        model.reset_states()
+       hist = model.fit(x_train, y_train, epochs=1, batch_size=1, validation_data=(x_val, y_val))
+       # hist = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val), callbacks= [print_weights])
 
-hist = model.fit(x_train, y_train, epochs=40, batch_size=10, validation_data=(x_val, y_val))
-# hist = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val), callbacks= [print_weights])
+       # 5. 학습과정 살펴보기
 
-# 5. 학습과정 살펴보기
+       # fig, loss_ax = plt.subplots()
 
-fig, loss_ax = plt.subplots()
+       # acc_ax = loss_ax.twinx()
 
-acc_ax = loss_ax.twinx()
+       # loss_ax.plot(hist.history['loss'], 'y', label='train loss')
+       # loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
+       # loss_ax.set_ylim([0.0, 3.0])
 
-loss_ax.plot(hist.history['loss'], 'y', label='train loss')
-loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
-loss_ax.set_ylim([0.0, 3.0])
+       # acc_ax.plot(hist.history['accuracy'], 'b', label='train acc')
+       # acc_ax.plot(hist.history['val_accuracy'], 'g', label='val acc')
+       # acc_ax.set_ylim([0.0, 1.0])
 
-acc_ax.plot(hist.history['accuracy'], 'b', label='train acc')
-acc_ax.plot(hist.history['val_accuracy'], 'g', label='val acc')
-acc_ax.set_ylim([0.0, 1.0])
+       # loss_ax.set_xlabel('epoch')
+       # loss_ax.set_ylabel('loss')
+       # acc_ax.set_ylabel('accuray')
 
-loss_ax.set_xlabel('epoch')
-loss_ax.set_ylabel('loss')
-acc_ax.set_ylabel('accuray')
+       # loss_ax.legend(loc='upper left')
+       # acc_ax.legend(loc='lower left')
 
-loss_ax.legend(loc='upper left')
-acc_ax.legend(loc='lower left')
+       # plt.show()
 
-plt.show()
+       # 6. 모델 평가하기, 
+       loss_and_metrics = model.evaluate(x_val, y_val, batch_size=1)
+       print('## evaluation loss and_metrics ##')
+       print(loss_and_metrics)
 
-# 6. 모델 평가하기
-loss_and_metrics = model.evaluate(x_val, y_val, batch_size=10)
-print('## evaluation loss and_metrics ##')
-print(loss_and_metrics)
+       print(loss_and_metrics[1])
 
-if loss_and_metrics.metrics
-
-model_json = model.to_json()
-with open("model.json", "w") as json_file : 
-    json_file.write(model_json)
+       model_json = model.to_json()
+       with open("model.json", "w") as json_file : 
+              json_file.write(model_json)
 
