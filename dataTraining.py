@@ -58,7 +58,7 @@ x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, t
 y_train = np_utils.to_categorical(y_train)
 y_val = np_utils.to_categorical(y_val)
 one_hot_vec_size = y_train.shape[1]
-print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape)
+print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape, " ", one_hot_vec_size)
 print(y_train)
 
 # 2. 모델 구성하기
@@ -120,3 +120,4 @@ model_json = model.to_json()
 with open("model.json", "w") as json_file : 
     json_file.write(model_json)
 
+model.save('best_model.h5')

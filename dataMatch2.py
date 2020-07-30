@@ -11,8 +11,8 @@ from rotate import getRotateVec
 import pprint 
 import csv   
     
-jsonPath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\data.json'
-statspath = 'C:\\Users\\ksh04\\PythonProjects\\DataManufacture\\appstats.json'
+jsonPath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\data.json'
+statspath = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\appstats.json'
 dataAll={}
 stressArr = []
 

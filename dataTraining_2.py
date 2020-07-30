@@ -1,6 +1,7 @@
 import json
 import time
 import pprint
+import keras
 from openpyxl import Workbook
 from ast import literal_eval
 from dataclasses import dataclass
@@ -22,12 +23,7 @@ from keras.layers import Dense, Embedding, LSTM, Dropout
 from keras.layers import Flatten
 from keras import regularizers, optimizers
 from keras.callbacks import LambdaCallback, ModelCheckpoint
-
-# strategy = tf.distribute.MirroredStrategy()
-
-# with strategy.scope():
-#        inputs = tf.keras.layers.Input(shape=(1,))
-#        predictions = tf.keras.layers.Dense(1)(inputs)
+from keras.models import model_from_json
 
 filePath_data = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\trainingData.csv'
 filePath_stress = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\stressData.csv'
@@ -56,13 +52,10 @@ with open(filePath_stress, encoding= 'UTF-8') as file:
 trainingData_x = np.array(trainingData_x)
 
 trainingData_x = (trainingData_x - trainingData_x.min(axis=0)) / (trainingData_x.max(axis=0) - trainingData_x.min(axis=0))
-# trainingData_x = trainingData_x.tolist()
 trainingData_x = np.reshape(trainingData_x, (4014, 5, 5))
 
-# print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape)
-# print(y_train)
+last_accuracy = 0.7
 
-# 테스트 트레인 분리
 while True:
        x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.25)
 
@@ -70,63 +63,22 @@ while True:
        y_val = np_utils.to_categorical(y_val)
        one_hot_vec_size = y_train.shape[1]
 
-       # 2. 모델 구성하기
-       # Dense란 ? 입력 하나에 출력 세 개 (첫번째가 학습해야할 weight 수, input dim이 입력) timestep 이 input length
-       # return sequences : 매 번 출력함
-       # stateful : 상태 유지 여부
-       model = Sequential()
-       model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,5)))
-       model.add(Dropout(0.5))
-       model.add(Dense(one_hot_vec_size, activation='softmax'))
+       # json_file = open("model.json", "r")
+       # loaded_model_json = json_file.read()
+       # json_file.close()
+       # loaded_model = model_from_json(loaded_model_json)
 
-       # 3. 모델 학습과정 설정하기
-       adam = optimizers.Adam(learning_rate=0.01, clipvalue=2.0)
-       model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+       loaded_model = keras.models.load_model('best_model.h5')
 
-       # 4. 모델 학습시키기
+       loaded_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+       hist = loaded_model.fit(x_train, y_train, epochs=200, batch_size=1, validation_data=(x_val, y_val))
 
-       # print(x_train)
-
-       # num_epochs = 2000
-       # for i in range(num_epochs):
-       #        print( 'epochs: {}'.format(i))
-       #        model.fit(x_train, y_train, epochs=1, batch_size=1, verbose=2, validation_data=(x_val, y_val), shuffle=False)
-       #        model.reset_states()
-
-       hist = model.fit(x_train, y_train, epochs=1, batch_size=1, validation_data=(x_val, y_val))
-       # hist = model.fit(x_train, y_train, epochs=10, batch_size=25, validation_data=(x_val, y_val), callbacks= [print_weights])
-
-       # 5. 학습과정 살펴보기
-
-       # fig, loss_ax = plt.subplots()
-
-       # acc_ax = loss_ax.twinx()
-
-       # loss_ax.plot(hist.history['loss'], 'y', label='train loss')
-       # loss_ax.plot(hist.history['val_loss'], 'r', label='val loss')
-       # loss_ax.set_ylim([0.0, 3.0])
-
-       # acc_ax.plot(hist.history['accuracy'], 'b', label='train acc')
-       # acc_ax.plot(hist.history['val_accuracy'], 'g', label='val acc')
-       # acc_ax.set_ylim([0.0, 1.0])
-
-       # loss_ax.set_xlabel('epoch')
-       # loss_ax.set_ylabel('loss')
-       # acc_ax.set_ylabel('accuray')
-
-       # loss_ax.legend(loc='upper left')
-       # acc_ax.legend(loc='lower left')
-
-       # plt.show()
-
-       # 6. 모델 평가하기, 
-       loss_and_metrics = model.evaluate(x_val, y_val, batch_size=1)
+       loss_and_metrics = loaded_model.evaluate(x_val, y_val, batch_size=1)
        print('## evaluation loss and_metrics ##')
        print(loss_and_metrics)
 
-       print(loss_and_metrics[1])
-
-       model_json = model.to_json()
-       with open("model.json", "w") as json_file : 
-              json_file.write(model_json)
-
+       if last_accuracy <= loss_and_metrics[1]:
+              last_accuracy = loss_and_metrics[1]
+              print("good")
+              # Save the entire model to a HDF5 file
+              loaded_model.save('best_model.h5')
