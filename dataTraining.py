@@ -53,6 +53,9 @@ trainingData_x = (trainingData_x - trainingData_x.min(axis=0)) / (trainingData_x
 # trainingData_x = trainingData_x.tolist()
 trainingData_x = np.reshape(trainingData_x, (4014, 5, 5))
 
+for i in range (0, len(trainingData_x)):
+       print(trainingData_x[i], " ", trainingData_y[i])
+
 x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.25)
 
 y_train = np_utils.to_categorical(y_train)

@@ -48,12 +48,12 @@ with open(statspath, encoding= 'UTF-8') as file:
 
                                     
                                     if temp == 0:
-                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],0,0])
+                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],0,0])
                                         # dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],0,0])
                                         # print(dataAll[coroutine][len(dataAll[coroutine]-1)])    
                                                              
                                     elif 'category' in temp:
-                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],temp['category'],temp['totalTimeInForeground']])
+                                        dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],temp['category'],temp['totalTimeInForeground']])
                                         # dataAll[coroutine].append([item['ifMoving'],item['orientation'],item['posture'],item['std_posture'],temp['category'],temp['totalTimeInForeground']])
                                         # print(dataAll[coroutine][len(dataAll[coroutine]-1)])
                                         # stressArr.append(stressLabel)
@@ -72,12 +72,12 @@ with open(statspath, encoding= 'UTF-8') as file:
 
 print(len(dataAll))
 print(len(stressArr))
-with open('trainingData.csv','w',newline='') as file:
+with open('trainingData2.csv','w',newline='') as file:
     for i in list(dataAll.values()):
         cw = csv.writer(file)
         cw.writerow(i)
 
         
-with open('stressData.csv','w',newline='') as file:
+with open('stressData2.csv','w',newline='') as file:
     cw = csv.writer(file)
     cw.writerow(stressArr)
