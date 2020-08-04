@@ -57,8 +57,8 @@ trainingData_x = ((2 * (trainingData_x - trainingData_x.min(axis=0))) / (trainin
 # trainingData_x = trainingData_x.tolist()
 trainingData_x = np.reshape(trainingData_x, (4014, 5, 6))
 
-for i in range (0, len(trainingData_x)):
-       print(trainingData_x[i], " ", trainingData_y[i])
+# for i in range (0, len(trainingData_x)):
+#        print(trainingData_x[i], " ", trainingData_y[i])
 
 x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, test_size = 0.3)
 
@@ -66,12 +66,15 @@ y_train = np_utils.to_categorical(y_train)
 y_val = np_utils.to_categorical(y_val)
 one_hot_vec_size = y_train.shape[1]
 print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape, " ", one_hot_vec_size)
-print(y_train)
+# print(y_train)
 
 # 2. 모델 구성하기
 # Dense란 ? 입력 하나에 출력 세 개 (첫번째가 학습해야할 weight 수, input dim이 입력) timestep 이 input length
 # return sequences : 매 번 출력함
 # stateful : 상태 유지 여부
+
+print(x_train.shape)
+
 model = Sequential()
 model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,6)))
 model.add(Dropout(0.5))
@@ -83,7 +86,7 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 # 4. 모델 학습시키기
 
-print(x_train)
+# print(x_train)
 
 # num_epochs = 2000
 # for i in range(num_epochs):
@@ -118,7 +121,7 @@ acc_ax.legend(loc='lower left')
 plt.show()
 
 # 6. 모델 평가하기
-loss_and_metrics = model.evaluate(x_val, y_val, batch_size=1)
+loss_and_metrics = model.evaluate(x_val, y_val, batch_size=10)
 print('## evaluation loss and_metrics ##')
 print(loss_and_metrics)
 
@@ -127,4 +130,4 @@ model_json = model.to_json()
 with open("model.json", "w") as json_file : 
     json_file.write(model_json)
 
-model.save('best_model_2.h5')
+model.save('best_model_2_10.h5')
