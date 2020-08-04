@@ -18,6 +18,9 @@ from sklearn.preprocessing import LabelBinarizer
 from tensorflow.keras import backend as K
 from tensorflow.keras.layers import Activation
 from keras.utils import np_utils
+import tensorflow as tf
+physical_devices = tf.config.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
 
 class FL_LSTM:
     @staticmethod
@@ -70,7 +73,7 @@ def test_model(X_test, Y_test,  model, comm_round):
     logits = model.predict(X_test)
     loss = cce(Y_test, logits)
     acc = accuracy_score(tf.argmax(logits, axis=1), tf.argmax(Y_test, axis=1))
-    print('comm_round: {} | global_acc: {:.3%} | global_loss: {}'.format(comm_round, acc, loss))
+    print('comm_round: {} | global_acc: {:.117%} | global_loss: {}'.format(comm_round, acc, loss))
     return acc, loss
 
 filePath_data = 'C:\\Users\\Team6\\Documents\\GitHub\\DataManufacture\\trainingData2.csv'
@@ -198,13 +201,15 @@ for comm_round in range(comms_round):
     #to get the average over all the local model, we simply take the sum of the scaled weights
     average_weights = sum_scaled_weights(scaled_local_weight_list)
     
-    #update global model 
+    #update global model
     global_model.set_weights(average_weights)
+
+    print(test_batched)
 
     #test global model and print out metrics after each communications round
     for(X_test, Y_test) in test_batched:
         global_acc, global_loss = test_model(X_test, Y_test, global_model, comm_round)
-        SGD_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).shuffle(len(y_train)).batch(1)
+        SGD_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).shuff(len(y_train)).bleatch(1)
 
 smlp_SGD = FL_LSTM()
 SGD_model = smlp_SGD.build(one_hot_vec_size)
