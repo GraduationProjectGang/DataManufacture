@@ -26,8 +26,11 @@ class FL_LSTM:
     @staticmethod
     def build(one_hot_vec_size):
         model = Sequential()
-        model.add(LSTM(128, stateful=True, input_shape=x_train.shape, batch_input_shape=(1,5,6)))
+        model.add(LSTM(128, stateful=True, input_shape=(1,5,6), batch_input_shape=(1,5,6)))
+
+        model.add(Dense(32, activation='relu'))
         model.add(Dropout(0.5))
+
         model.add(Dense(one_hot_vec_size, activation='softmax'))
         return model
     
@@ -69,7 +72,7 @@ def test_model(X_test, Y_test,  model, comm_round):
     #logits = model.predict(X_test, batch_size=100)
 
     X_test = np.array(X_test)
-
+    print(X_test.shape)
     logits = model.predict(X_test)
     loss = cce(Y_test, logits)
     acc = accuracy_score(tf.argmax(logits, axis=1), tf.argmax(Y_test, axis=1))
@@ -147,6 +150,7 @@ x_train,x_val,y_train,y_val = train_test_split(trainingData_x, trainingData_y, t
 y_train = np_utils.to_categorical(y_train)
 y_val = np_utils.to_categorical(y_val)
 one_hot_vec_size = y_train.shape[1]
+print("temp")
 print(y_train.shape[0], " ", y_train.shape[1], " ", y_train.shape, " ", one_hot_vec_size)
 
 print(x_train.shape)
@@ -180,6 +184,7 @@ for comm_round in range(comms_round):
     
     #loop through each client and create new local model
     for client in client_names:
+
         smlp_local = FL_LSTM()
         local_model = smlp_local.build(one_hot_vec_size)
         local_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
